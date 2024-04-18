@@ -37,10 +37,11 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
             "concat(c.firstName, concat(' ', c.lastName)) like :searchValue")
     Page<CustomerInfo> searchInfo(@Param("active") Integer active, @Param("searchValue") String searchValue, Pageable pageable);
 
-    @Query("select new ge.ibsu.demo.dto.CustomerAddressInfo(c.firstName, c.lastName, a.City.city, a.City.Country.country, a.address) " +
-            "From Customer c " +
-            "Join Address a on c.address.id = a.id " +
+    @Query("select new ge.ibsu.demo.dto.CustomerAddressInfo(c.firstName, c.lastName, a.city.city, a.city.country, a.address) " +
+            "from Customer c " +
+            "join Address a on c.address.id = a.id " +
             "where c.active = :active and " +
-            "concat(c.firstName, concat(' ', c.lastName)) like :searchValue")
-    Page<CustomerAddressInfo> searchInfo2(@Param("active") Integer active, @Param("searchValue") String searchValue, Pageable pageable);
+            "concat(c.firstName, ' ', c.lastName) like %:searchValue%")
+    Page<CustomerAddressInfo> searchInfo2(Integer active, String searchValue, Pageable pageable);
+
 }

@@ -75,4 +75,13 @@ public class CustomerController {
     public List<CustomerFullName> getAllActive() {
         return customerService.getActiveCustomers();
     }
+
+    @RequestMapping(value = "/searchCustomer", method = RequestMethod.POST, produces = "application/json")
+    public Page<CustomerAddressInfo> searchInfo2(@RequestBody RequestData<CustomerAddressInfo> rd) throws Exception {
+    GeneralUtil.checkRequiredProperties(rd.getData(), Arrays.asList("active", "searchText"));
+    return customerService.searchInfo2(rd.getData(), rd.getPaging());
+    }
+
+
 }
+

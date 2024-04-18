@@ -64,9 +64,6 @@ public class CustomerService {
 
     public Page<CustomerInfo> search(SearchCustomer searchCustomer, Paging paging) {
         String searchText = searchCustomer.getSearchText() != null ? "%" + searchCustomer.getSearchText() + "%" : "";
-        //for native query sort field should be the database column
-        //Pageable pageable = PageRequest.of(paging.getPage() - 1, paging.getSize(), Sort.by("customer_id").descending());
-        //return customerRepository.searchWithNative(searchCustomer.getActive(), searchText, pageable);
         Pageable pageable = PageRequest.of(paging.getPage() - 1, paging.getSize(), Sort.by("id").descending());
         return customerRepository.searchInfo(searchCustomer.getActive(), searchText, pageable);
     }
@@ -78,5 +75,15 @@ public class CustomerService {
 
     public List<CustomerFullName> getActiveCustomers() {
         return customerRepository.findAllByActive(1, CustomerFullName.class);
+    }
+
+
+
+    public Page<CustomerAddressInfo> searchInfo2(CustomerAddressInfo customerAddressInfo, Paging paging) {
+        Integer active = 1;
+        String searchValue = "%" + customerAddressInfo.getFirstName() + " " + customerAddressInfo.getLastName() + "%";
+        Pageable pageable = PageRequest.of(paging.getPage() - 1, paging.getSize(), Sort.by("id").descending());
+
+        return customerRepository.searchInfo2(active, searchValue, pageable);
     }
 }

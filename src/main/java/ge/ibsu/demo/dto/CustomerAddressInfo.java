@@ -10,15 +10,6 @@ public class CustomerAddressInfo {
 
     private String Address;
 
-    public CustomerAddressInfo(){}
-
-    public CustomerAddressInfo(String firstName, String lastName, String city, String country, String address) {
-        this.firstName = firstName;
-        LastName = lastName;
-        City = city;
-        Country = country;
-        Address = address;
-    }
 
     public String getAddress() {
         return Address;
@@ -32,6 +23,15 @@ public class CustomerAddressInfo {
         return firstName;
     }
 
+    public CustomerAddressInfo(){}
+
+    public CustomerAddressInfo(String firstName, String lastName, String city, String country, String address) {
+        this.firstName = firstName;
+        LastName = lastName;
+        City = city;
+        Country = country;
+        Address = address;
+    }
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
